@@ -1,14 +1,13 @@
 import { fetchGallery } from './Api/AxiosAPI';
 import { ToastContainer } from 'react-toastify';
-import { SearchBar } from '../components/Searchbar/Searchbar';
+import { SearchBar } from './Searchbar/Searchbar';
 import { Component } from 'react';
-import { ImageGallery } from '../components/ImageGallery/ImageGallery';
-// import { ImageItem } from '../components/ImageGalleryItem/ImageGalleryItem';
-import { Modal } from '../components/Modal/Modal';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Modal } from './Modal/Modal';
 import { Container } from './App.styled';
-import { Loader } from '../components/Loader/Loader';
-import { LoadMore } from '../components/ButtonLoadMore/Button';
-// import Image from './ImageGalleryItem';
+import { Loader } from './Loader/Loader';
+import { LoadMore } from './ButtonLoadMore/Button';
+
 export class App extends Component {
   state = {
     query: '',

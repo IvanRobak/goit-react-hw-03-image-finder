@@ -10,15 +10,13 @@ import {
 } from '../Searchbar/Searchbar.styled';
 import PropTypes from 'prop-types';
 import 'react-toastify/dist/ReactToastify.css';
-//
-//
+
 export class SearchBar extends Component {
   state = {
     search: '',
   };
   handleInputChange = e => {
     this.setState({ search: e.currentTarget.value });
-    //  console.log({ earch: e.currentTarget.value });
   };
   handleSubmit = e => {
     e.preventDefault();

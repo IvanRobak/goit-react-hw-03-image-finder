@@ -1,4 +1,4 @@
-import { Item, Img } from '../ImageGalleryItem/ImageGalleryItem.styled';
+import { Item, Img } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
 
 export const ImageItem = ({ webformatURL, largeImageURL, openModal }) => {

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { Component } from 'react';
-import { Overlay, ModalWindow, Button, Img } from '../Modal/Modal.styled';
-// import { Loader } from '../Loader/Loader';
+import { Overlay, ModalWindow, Button, Img } from './Modal.styled';
+
 const modalRoot = document.querySelector('#modal-root');
 export class Modal extends Component {
   closeEsc = e => {
