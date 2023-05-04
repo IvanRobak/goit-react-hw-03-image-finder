@@ -10,24 +10,31 @@ export class Modal extends Component {
       this.props.closeModal();
     }
   };
+
   componentDidMount = () => {
     window.addEventListener('keydown', this.closeEsc);
   };
+
   componentWillUnmount = () => {
     window.removeEventListener('keydown', this.closeEsc);
   };
+
+  handleClickOverlay = e => {
+    if (e.target === e.currentTarget) {
+      this.props.closeModal();
+    }
+  };
+
+  handleClickButton = () => {
+    this.props.closeModal();
+  };
+
   render() {
-    const { closeModal, modalImage } = this.props;
+    const { modalImage } = this.props;
     return createPortal(
-      <Overlay
-        onClick={e => {
-          if (e.target === e.currentTarget) {
-            closeModal();
-          }
-        }}
-      >
+      <Overlay onClick={this.handleClickOverlay}>
         {' '}
-        <Button type="button" onClick={() => closeModal()}>
+        <Button type="button" onClick={this.handleClickButton}>
           X
         </Button>
         <ModalWindow>
@@ -38,6 +45,7 @@ export class Modal extends Component {
     );
   }
 }
+
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   modalImage: PropTypes.string.isRequired,

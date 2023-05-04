@@ -15,9 +15,9 @@ export class App extends Component {
     page: 1,
     images: [],
     largeImageURL: '',
-    modalImage: '',
     showModal: false,
     totalHits: 0,
+    showbegin: false,
   };
   componentDidUpdate = (_, prevState) => {
     if (
@@ -28,30 +28,32 @@ export class App extends Component {
       fetchGallery(this.state.query, this.state.page)
         .then(data => {
           this.setState(prevState => ({
-            images:
-              this.state.page === 1
-                ? [...data.hits]
-                : [...prevState.images, ...data.hits],
-            totalHits:
-              this.state.page === 1
-                ? data.totalHits - data.hits.length
-                : data.totalHits - [...prevState.images, ...data.hits].length,
+            images: [...prevState.images, ...data.hits],
+            totalHits: data.totalHits,
           }));
+          if (
+            this.state.showbegin &&
+            this.state.page <= Math.ceil(this.state.totalHits / 12)
+          ) {
+            this.setState({ showbegin: false });
+          }
         })
         .finally(() => {
           this.setState({ isLoading: false });
         });
     }
   };
+
   handleFormSubmit = query => {
-    this.setState({ query, page: 1 });
+    this.setState({ query, page: 1, images: [] });
   };
-  toggleModal = modalImage => {
-    if (!modalImage) {
+
+  toggleModal = largeImageURL => {
+    if (!largeImageURL) {
       this.setState({ largeImageURL: '', showModal: false });
       return;
     }
-    this.setState({ modalImage, showModal: true });
+    this.setState({ largeImageURL, showModal: true });
   };
   handleLoadMore = () => {
     this.setState(state => ({ page: state.page + 1 }));
@@ -70,7 +72,6 @@ export class App extends Component {
         {showModal && (
           <Modal closeModal={toggleModal} modalImage={modalImage} />
         )}
-
         <ToastContainer autoClose={2500} />
       </Container>
     );
