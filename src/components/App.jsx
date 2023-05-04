@@ -16,7 +16,7 @@ export class App extends Component {
     images: [],
     largeImageURL: '',
     showModal: false,
-    totalHits: 0,
+    showBtn: false,
     showbegin: false,
   };
   componentDidUpdate = (_, prevState) => {
@@ -29,14 +29,8 @@ export class App extends Component {
         .then(data => {
           this.setState(prevState => ({
             images: [...prevState.images, ...data.hits],
-            totalHits: data.totalHits,
+            showBtn: this.state.page <= Math.ceil(data.totalHits / 12),
           }));
-          if (
-            this.state.showbegin &&
-            this.state.page <= Math.ceil(this.state.totalHits / 12)
-          ) {
-            this.setState({ showbegin: false });
-          }
         })
         .finally(() => {
           this.setState({ isLoading: false });
@@ -62,13 +56,13 @@ export class App extends Component {
 
   render() {
     const { handleFormSubmit, toggleModal, handleLoadMore } = this;
-    const { isLoading, images, totalHits, showModal, modalImage } = this.state;
+    const { isLoading, images, showBtn, showModal, modalImage } = this.state;
     return (
       <Container>
         <SearchBar onSubmit={handleFormSubmit} />
         {isLoading && <Loader />}
         <ImageGallery images={images} openModal={toggleModal} />
-        {!!totalHits && <LoadMore onLoadMore={handleLoadMore} />}
+        {showBtn && <LoadMore onLoadMore={handleLoadMore} />}
         {showModal && (
           <Modal closeModal={toggleModal} modalImage={modalImage} />
         )}
