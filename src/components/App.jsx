@@ -47,7 +47,11 @@ export class App extends Component {
       this.setState({ largeImageURL: '', showModal: false });
       return;
     }
-    this.setState({ largeImageURL, showModal: true });
+    this.setState({
+      largeImageURL,
+      showModal: true,
+      modalImage: largeImageURL,
+    });
   };
   handleLoadMore = () => {
     this.setState(state => ({ page: state.page + 1 }));
